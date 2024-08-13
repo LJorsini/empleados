@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+<h1>Empleados</h1>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar Empleado
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        
+                        <input type="show" class="form-control" id="empleadoId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha Nacimiento</label>
+                        <input type="date" class="form-control" id="fecha">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="domicilio" class="form-label">Domicilio</label>
+                        <input type="text" class="form-control" id="domicilio">
+                    </div>
+
+                    @* <div class="mb-3">
+                        <label for="provincias" class="form-label">Provincia</label>
+                        @Html.DropDownList("provincias", null, htmlAttributes: new { @class = "form-control" })
+                    </div> *@
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+
+                    
+
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" id="telefono">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="salario" class="form-label">Salario</label>
+                        <input type="number" class="form-control" id="salario">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="LimpiarModal()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="CargarEmpleado()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="">Nombre</th>
+            <th scope="">Fecha nacimiento</th>
+            <th scope="">Domicilio</th>
+            <th scope="">Email</th>
+            <th scope="">TE</th>
+            <th scope="">Salario</th>
+        </tr>
+    </thead>
+    <tbody id="body-tabla">
+
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/empleado.js"></script>
+}

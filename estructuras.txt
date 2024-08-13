@@ -1,0 +1,123 @@
+AJAX
+
+$.ajax({
+        url: "../Proyectos/CargarLista", 
+        data: {},
+        type: "POST", 
+        dataType: "json", 
+        success: function(response) {
+            // Función que se ejecuta si la solicitud es exitosa
+            console.log(response);
+        },
+        error: function(xhr, status) {
+            // Función que se ejecuta si hay un error
+            console.error("Mensaje error");
+        }
+    });
+
+
+BOTONES CARGAR Y ACTUALIZA
+
+<div class="mb-2">
+    <button type="button" onclick="ListadoProyectos()" class="btn btn-primary">
+        Actualizar Tabla
+    </button>
+    <button type="button" id="nuevoProyecto" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#ModalProyectos">
+        Cargar nuevo proyecto
+    </button>
+</div>
+
+
+MODAL
+
+<div class="modal" id="ModalProyectos" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <input type="hidden" id="idProyecto" value="0">
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del proyecto</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del proyecto">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion del proyecto</label>
+                        <input type="text" class="form-control" id="descripcion" placeholder="Ingrese la descripcion del proyecto">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="presupuesto" class="form-label">Presupuesto</label>
+                        <input type="number" class="form-control" id="presupuesto" placeholder="Ingrese el presupuesto">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha de inicio del proyecto</label>
+                        <input type="datetime-local" id="fechaInicio" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaFin" class="form-label">Fecha del fin del proyecto</label>
+                        <input type="datetime-local" id="fechaFin" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")"/>
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="Estado" class="form-label">Estado</label>
+                        @Html.DropDownList("estado", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="LimpiarModal()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="NuevoProyecto()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+DROPDOWN
+
+public IActionResult Index()
+    {
+        var selectEstados = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "0", Text = "[SELECCIONE...]" }
+        };
+
+        // Obtener todas las opciones del enum
+        var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>();
+
+        // Convertir las opciones del enum en SelectListItem
+        selectEstados.AddRange(enumValues.Select(e => new SelectListItem
+        {
+            Value = e.GetHashCode().ToString(),
+            Text = e.ToString().ToUpper()
+        }));
+
+        // Pasar la lista de opciones al modelo de la vista
+        ViewBag.Estado = selectEstados.OrderBy(t => t.Text).ToList();
+
+        return View();
+    }
+
+                    
+
+                    <div class="mb-3 col-6">
+                        <label for="Estado" class="form-label">Estado</label>
+                        @Html.DropDownList("estado", null, htmlAttributes: new { @class = "form-control" })
+                    </div>  
+
+
+                    <div class="mb-3">
+                        <label for="fechaFin" class="form-label">Fecha del fin del proyecto</label>
+                        <input type="datetime-local" id="fechaFin" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")"/>
+                    </div>
+
+    
